@@ -1,6 +1,5 @@
 package jpabook.jpashop.domain;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,7 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id;
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery",fetch = FetchType.LAZY)
     private Order order;
 
     @Embedded
@@ -22,4 +21,5 @@ public class Delivery {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
+
 }

@@ -16,14 +16,14 @@ public class Order {
     @Column(name ="order_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> orderitems = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -31,5 +31,10 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    public void setMember(Member member){
+        this.member = member;
+        member.getOrders().add(this);
+    }
 
 }
