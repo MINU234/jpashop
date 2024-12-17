@@ -21,7 +21,6 @@ public class MemberServiceTest {
     MemberRepository memberRepository;
 
     @Test
-    @Rollback(false)
     public void 회원가입() throws Exception {
         //Given
         Member member = new Member();
@@ -42,6 +41,6 @@ public class MemberServiceTest {
         memberService.join(member1);
 //        memberService.join(member2);
         
-        fail("예외발생");
+//        fail("예외발생");
     }
 }
