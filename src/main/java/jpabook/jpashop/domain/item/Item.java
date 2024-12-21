@@ -30,7 +30,8 @@ public abstract class Item {
     public void addStock(int quantity) { // 재고 추가
         this.stockQuantity += quantity;
     }
-    public void removeStock(int quantity) {
+    
+    public void removeStock(int quantity) { // 재고 제거
         int restStock = this.stockQuantity - quantity;
         if(restStock < 0) {
             throw new NotEnoughStockException("Stock amount exceeds stock limit");
