@@ -3,6 +3,7 @@ package jpabook.jpashop.domain;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import lombok.Getter;
+import lombok.Setter;
 
 @Embeddable
 @Getter
@@ -12,7 +13,6 @@ public class Adress {
     private String zipcode;
 
     protected Adress(){
-
     }
 
     public Adress(String city, String street, String zipcode) {
