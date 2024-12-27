@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +23,13 @@ public class Order {
     private Member member;
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-    private List<OrderItem> orderitems = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    private LocalTime orderDate;
+    private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
@@ -40,9 +40,10 @@ public class Order {
     }
 
     public void addOrderItem(OrderItem orderItem){
-        orderitems.add(orderItem);
+        orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
+
     public void setDelivery(Delivery delivery){
         this.delivery = delivery;
         delivery.setOrder(this);
@@ -56,7 +57,7 @@ public class Order {
             order.addOrderItem(orderItem);
         }
         order.setStatus(OrderStatus.ORDER);
-        order.setOrderDate(LocalTime.now());
+        order.setOrderDate(LocalDateTime.now());
         return order;
     }
 
@@ -67,7 +68,7 @@ public class Order {
             throw new IllegalStateException("이미  배송완료된 상품은 취소가 불가능 합니다");
         }
         this.setStatus(OrderStatus.CANCEL);
-        for(OrderItem orderItem : orderitems){
+        for(OrderItem orderItem : orderItems){
            orderItem.cancel();
         }
     }
@@ -75,7 +76,7 @@ public class Order {
     // 전체 주문 가격 조회
     public int getTotalPrice(){
         int total = 0;
-        for(OrderItem orderItem : orderitems)
+        for(OrderItem orderItem : orderItems)
             total += orderItem.getTotalPrice(); // 상품 가격과 상품 수량만큼 더해야 하기 때문에 orderItems에서 count와 price를 곱한다
         return total;
 

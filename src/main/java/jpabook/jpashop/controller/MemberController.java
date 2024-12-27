@@ -1,7 +1,7 @@
 package jpabook.jpashop.controller;
 
 import jakarta.validation.Valid;
-import jpabook.jpashop.domain.Adress;
+import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +31,10 @@ public class MemberController {
         if(result.hasErrors()){
             return "members/createMemberForm";
         }
-        Adress adress = new Adress(form.getCity(),form.getStreet(),form.getZipcode());
+        Address address = new Address(form.getCity(),form.getStreet(),form.getZipcode());
         Member member = new Member();
         member.setName(form.getName());
-        member.setAdress(adress);
+        member.setAddress(address);
 
         memberService.join(member);
         return "redirect:/";

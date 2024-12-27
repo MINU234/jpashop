@@ -1,7 +1,7 @@
 package jpabook.jpashop.service;
 
 import jakarta.persistence.EntityManager;
-import jpabook.jpashop.domain.Adress;
+import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
@@ -40,7 +40,7 @@ public class OrderServiceTest {
         Order order = orderRepository.findOne(orderId);
 
         assertEquals(OrderStatus.ORDER, order.getStatus(), "상품 주문시 상태는 ORDER");
-        assertEquals(1,order.getOrderitems().size(),"주문한 상품 종류수가 동일해야함");
+        assertEquals(1,order.getOrderItems().size(),"주문한 상품 종류수가 동일해야함");
         assertEquals(10000*orderCount,order.getTotalPrice(),"주문 가격은 가격 * 수량이다");
         assertEquals(8,book.getStockQuantity(),"주문 수량만큼 재고가 줄어야한다");
     }
@@ -90,7 +90,7 @@ public class OrderServiceTest {
     private Member getMember() {
         Member member = new Member();
         member.setName("회원1");
-        member.setAdress(new Adress("서울","강가","123-123"));
+        member.setAddress(new Address("서울","강가","123-123"));
         em.persist(member);
         return member;
     }
