@@ -1,6 +1,5 @@
 package jpabook.jpashop.service;
 
-
 import jpabook.jpashop.domain.*;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
@@ -25,8 +24,7 @@ public class OrderService {
     // 주문
     @Transactional
     public Long order(long MemberId,Long ItemId, int count){
-
-        Member member = memberRepository.findOne(MemberId);
+        Member member = memberRepository.findById(MemberId).get();
         Item item = itemRepository.findOne(ItemId);
 
         //배송 정보 생성
